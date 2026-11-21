@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Retrogames · Ports nativos para PlayStation 2</title>
+<meta name="description" content="Ports nativos e gratuitos de jogos clássicos para o PlayStation 2, em português do Brasil: Yu-Gi-Oh! Forbidden Memories, Super Mario World e, em breve, Tekken 3.">
+<meta property="og:title" content="Retrogames · Ports nativos para PlayStation 2">
+<meta property="og:description" content="Jogos clássicos rodando direto no PS2, sem emulador, em português do Brasil. Grátis.">
+<meta property="og:image" content="img/yugioh.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#050505;--panel:#0e0e12;--panel2:#15151c;--line:#26262f;--gold:#e8b84a;--gold2:#ffd56b;--text:#ecebf2;--mut:#9b9aa8;--navy:#10163d}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 Inter,system-ui,sans-serif}
+  a{color:var(--gold2)}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+  /* céu de estrelas como na abertura dos ports */
+  .stars{position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background-image:
+      radial-gradient(1px 1px at 10% 20%,#e8b84a88 50%,transparent 51%),
+      radial-gradient(1px 1px at 70% 10%,#ffffff55 50%,transparent 51%),
+      radial-gradient(1px 1px at 40% 70%,#e8b84a66 50%,transparent 51%),
+      radial-gradient(1px 1px at 85% 55%,#ffffff44 50%,transparent 51%),
+      radial-gradient(1px 1px at 25% 90%,#ffffff33 50%,transparent 51%),
+      radial-gradient(1px 1px at 55% 35%,#e8b84a55 50%,transparent 51%);
+    background-size:420px 420px}
+
+  header{padding:80px 0 56px;text-align:center}
+  .cube-scene{width:120px;height:120px;margin:0 auto 34px;perspective:600px}
+  .cube{width:100%;height:100%;position:relative;transform-style:preserve-3d;animation:spin 9s linear infinite}
+  .cube i{position:absolute;inset:0;border:3px solid var(--gold);box-shadow:0 0 12px rgba(232,184,74,.35)}
+  .cube i:nth-child(1){transform:translateZ(60px)}
+  .cube i:nth-child(2){transform:rotateY(180deg) translateZ(60px)}
+  .cube i:nth-child(3){transform:rotateY(90deg) translateZ(60px)}
+  .cube i:nth-child(4){transform:rotateY(-90deg) translateZ(60px)}
+  .cube i:nth-child(5){transform:rotateX(90deg) translateZ(60px)}
+  .cube i:nth-child(6){transform:rotateX(-90deg) translateZ(60px)}
+  @keyframes spin{from{transform:rotateX(-22deg) rotateY(0)}to{transform:rotateX(-22deg) rotateY(360deg)}}
+  @media (prefers-reduced-motion:reduce){.cube{animation:none;transform:rotateX(-22deg) rotateY(35deg)}}
+
+  .logo{font-family:"Press Start 2P",monospace;color:var(--gold);font-size:clamp(26px,6vw,54px);letter-spacing:2px;margin:0;line-height:1.2}
+  .place{font-family:VT323,monospace;color:var(--mut);font-size:24px;margin:8px 0 26px;letter-spacing:1px}
+  .tagline{font-size:clamp(20px,2.6vw,26px);font-weight:800;margin:0 0 10px;letter-spacing:-.01em}
+  .intro{color:var(--mut);max-width:40em;margin:0 auto}
+
+  section{padding:56px 0;border-top:1px solid var(--line)}
+  h2{font-size:28px;margin:0 0 6px}
+  h2 small{display:block;font-family:VT323,monospace;color:var(--gold);font-size:22px;font-weight:400;letter-spacing:1px;text-transform:uppercase}
+  .sub{color:var(--mut);margin:0 0 30px;max-width:46em}
+
+  .games{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  @media(max-width:980px){.games{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:640px){.games{grid-template-columns:1fr}}
+  .game{position:relative;display:flex;flex-direction:column;background:var(--panel);border:2px solid var(--line);color:inherit;text-decoration:none;transition:.18s}
+  a.game:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:0 14px 40px rgba(232,184,74,.12)}
+  a.game:focus-visible{outline:3px solid var(--gold2);outline-offset:3px}
+  .shot{position:relative;aspect-ratio:4/3;background:#000;overflow:hidden;border-bottom:2px solid var(--line)}
+  .shot img{width:100%;height:100%;object-fit:cover;display:block;image-rendering:pixelated}
+  .shot::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px)}
+  .from{position:absolute;left:10px;top:10px;z-index:1;font-family:VT323,monospace;font-size:19px;background:rgba(5,5,5,.85);border:1px solid var(--gold);color:var(--gold2);padding:0 8px}
+  .body{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1}
+  .game h3{margin:0 0 6px;font-size:20px;line-height:1.25}
+  .game p{margin:0 0 14px;color:var(--mut);font-size:15px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+  .chips span{font-family:VT323,monospace;font-size:17px;border:1px solid var(--line);background:var(--panel2);padding:0 8px;color:var(--text)}
+  .foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .ver{font-size:13px;color:var(--mut)}
+  .go{font-weight:600;color:var(--gold)}
+  a.game:hover .go{color:var(--gold2)}
+
+  .soon .shot{display:grid;place-items:center;background:
+     radial-gradient(ellipse at center,#1a1a24 0,#050505 70%)}
+  .soon .shot .mini{width:70px;height:70px;perspective:400px}
+  .soon .shot .mini .cube i:nth-child(1){transform:translateZ(35px)}
+  .soon .shot .mini .cube i:nth-child(2){transform:rotateY(180deg) translateZ(35px)}
+  .soon .shot .mini .cube i:nth-child(3){transform:rotateY(90deg) translateZ(35px)}
+  .soon .shot .mini .cube i:nth-child(4){transform:rotateY(-90deg) translateZ(35px)}
+  .soon .shot .mini .cube i:nth-child(5){transform:rotateX(90deg) translateZ(35px)}
+  .soon .shot .mini .cube i:nth-child(6){transform:rotateX(-90deg) translateZ(35px)}
+  .soon .shot .mini .cube i{border-width:2px}
+  .soon .shot b{position:absolute;bottom:22px;font-family:"Press Start 2P",monospace;font-size:14px;color:var(--gold);letter-spacing:2px}
+  .soon{border-style:dashed}
+
+  .how{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:860px){.how{grid-template-columns:1fr}}
+  .step{background:var(--panel);border:1px solid var(--line);padding:22px}
+  .step .n{font-family:"Press Start 2P",monospace;color:var(--gold);font-size:18px;margin-bottom:12px}
+  .step h3{margin:0 0 6px;font-size:17px}
+  .step p{margin:0;color:var(--mut);font-size:15px}
+
+  .apoio{display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center;background:var(--navy);border:2px solid var(--gold);padding:28px}
+  @media(max-width:760px){.apoio{grid-template-columns:1fr;text-align:center}}
+  .apoio img{width:180px;height:180px;background:#fff;padding:10px;image-rendering:pixelated}
+  .key{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:14px 0}
+  @media(max-width:760px){.key{justify-content:center}}
+  code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px;background:#0a0a10;border:1px solid var(--line);padding:6px 10px;word-break:break-all}
+  .copy{cursor:pointer;border:1px solid var(--gold);background:transparent;color:var(--gold);padding:6px 12px;font:600 14px Inter,sans-serif}
+  .copy:hover{background:rgba(232,184,74,.12)}
+
+  footer{border-top:1px solid var(--line);padding:32px 0 48px;color:var(--mut);font-size:14px}
+  footer p{margin:6px 0}
+</style>
+</head>
+<body>
+<div class="stars"></div>
+
+<header><div class="wrap">
+  <div class="cube-scene" aria-hidden="true"><div class="cube"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+  <h1 class="logo">RETROGAMES</h1>
+  <div class="place">Patos de Minas · MG</div>
+  <p class="tagline">Ports nativos para PlayStation 2</p>
+  <p class="intro">Jogos clássicos rodando direto no processador do PS2, sem emulador, em português do Brasil e de graça. Escolha um jogo para ver como baixar e jogar.</p>
+</div></header>
+
+<section id="jogos"><div class="wrap">
+  <h2><small>Os ports</small>Escolha o jogo</h2>
+  <p class="sub">Todos rodam num PS2 de verdade pelo OPL, com a sua própria cópia do jogo original.</p>
+  <div class="games">
+
+    <a class="game" href="https://guilhermesoti.github.io/yugiohps1praps2/">
+      <div class="shot"><span class="from">PS1 → PS2</span><img src="img/yugioh.png" alt="Campo de duelo do port de Yu-Gi-Oh! Forbidden Memories" width="480" height="360"></div>
+      <div class="body">
+        <h3>Yu-Gi-Oh! Forbidden Memories</h3>
+        <p>Duelos e batalhas 3D a 60 fps, cartas com os nomes da dublagem brasileira e trapaças prontas.</p>
+        <div class="chips"><span>PT-BR</span><span>60 FPS</span><span>480p</span><span>16:9</span></div>
+        <div class="foot"><span class="ver" data-repo="yugiohps1praps2">Beta</span><span class="go">Ver o jogo →</span></div>
+      </div>
+    </a>
+
+    <a class="game" href="https://guilhermesoti.github.io/smw-ps2/">
+      <div class="shot"><span class="from">SNES → PS2</span><img src="img/mario.png" alt="Tela de título do port de Super Mario World" width="640" height="480"></div>
+      <div class="body">
+        <h3>Super Mario World</h3>
+        <p>Tradução nova, tela larga 16:9 de verdade nas fases e um Gravador que prepara o pendrive pelo navegador.</p>
+        <div class="chips"><span>PT-BR</span><span>16:9</span><span>240p · 480p</span><span>TRAPAÇAS</span></div>
+        <div class="foot"><span class="ver" data-repo="smw-ps2">Beta</span><span class="go">Ver o jogo →</span></div>
+      </div>
+    </a>
+
+    <div class="game soon" aria-label="Tekken 3, em breve">
+      <div class="shot"><span class="from">PS1 → PS2</span><div class="mini" aria-hidden="true"><div class="cube"><i></i><i></i><i></i><i></i><i></i><i></i></div></div><b>EM BREVE</b></div>
+      <div class="body">
+        <h3>Tekken 3</h3>
+        <p>Em desenvolvimento. Assim que a primeira versão sair, ela aparece aqui.</p>
+        <div class="chips"><span>EM DESENVOLVIMENTO</span></div>
+        <div class="foot"><span class="ver">Aguarde</span></div>
+      </div>
+    </div>
+
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2><small>Como funciona</small>Do seu jogo para o PS2</h2>
+  <p class="sub">Os ports não trazem o jogo: você usa a cópia do seu disco ou cartucho, e o port lê os gráficos, sons e dados dela.</p>
+  <div class="how">
+    <div class="step"><div class="n">1</div><h3>Escolha o jogo</h3><p>Na página de cada port tem o pacote para baixar e as instruções.</p></div>
+    <div class="step"><div class="n">2</div><h3>Prepare o pendrive</h3><p>Pelo criador ou gravador no navegador, com a sua cópia do jogo. Nada é enviado para a internet.</p></div>
+    <div class="step"><div class="n">3</div><h3>Jogue no PS2</h3><p>Abra pelo OPL, como aplicativo ou como ISO com capa na lista de jogos.</p></div>
+  </div>
+</div></section>
+
+<section id="apoie"><div class="wrap">
+  <h2><small>Apoie</small>Ajude os próximos ports</h2>
+  <p class="sub">Os ports são e vão continuar gratuitos. Se eles te divertiram, qualquer valor ajuda a fazer os próximos.</p>
+  <div class="apoio">
+    <img src="img/pix-qrcode.png" alt="QR code Pix para doação" width="180" height="180">
+    <div>
+      <h3 style="margin:0">Pix (chave aleatória)</h3>
+      <div class="key">
+        <code id="pixkey">f19e4d1b-f35c-4541-919b-87a2cb540b9c</code>
+        <button class="copy" data-copy="pixkey">Copiar chave</button>
+      </div>
+      <p style="margin:6px 0 0;color:var(--mut)">De fora do Brasil? / Outside Brazil? <a href="https://ko-fi.com/guilhermesoti">ko-fi.com/guilhermesoti</a></p>
+      <p style="margin:6px 0 0;color:var(--mut);font-size:14px">Doação é voluntária e não libera nada extra.</p>
+    </div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <p>Projetos de fãs, sem ligação com a Konami, a Nintendo ou a Bandai Namco. Os jogos e suas marcas pertencem aos seus donos; nenhum port traz o jogo ou seus dados.</p>
+  <p>Retrogames Patos de Minas · <a href="https://github.com/guilhermesoti">github.com/guilhermesoti</a></p>
+</div></footer>
+
+<script>
+  // versão mais nova de cada port, direto do GitHub
+  document.querySelectorAll(".ver[data-repo]").forEach(async el => {
+    try {
+      const r = await fetch("https://api.github.com/repos/guilhermesoti/" + el.dataset.repo + "/releases?per_page=1");
+      if (!r.ok) return;
+      const rel = (await r.json())[0];
+      if (rel) el.textContent = rel.tag_name + (rel.prerelease && !/beta/i.test(rel.tag_name) ? " · beta" : "");
+    } catch (e) {}
+  });
+  document.querySelectorAll(".copy").forEach(b => b.addEventListener("click", async () => {
+    const t = document.getElementById(b.dataset.copy).textContent.trim();
+    try { await navigator.clipboard.writeText(t); const o = b.textContent; b.textContent = "Copiado!"; setTimeout(() => b.textContent = o, 1500); } catch (e) {}
+  }));
+</script>
+</body>
+</html>
