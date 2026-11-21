@@ -122,7 +122,7 @@
   <p class="sub">Todos rodam num PS2 de verdade pelo OPL, com a sua própria cópia do jogo original.</p>
   <div class="games">
 
-    <a class="game" href="https://guilhermesoti.github.io/yugiohps1praps2/">
+    <a class="game" href="https://portretrogames.github.io/yugiohps1praps2/">
       <div class="shot"><span class="from">PS1 → PS2</span><img src="img/yugioh.png" alt="Campo de duelo do port de Yu-Gi-Oh! Forbidden Memories" width="480" height="360"></div>
       <div class="body">
         <h3>Yu-Gi-Oh! Forbidden Memories</h3>
@@ -132,7 +132,7 @@
       </div>
     </a>
 
-    <a class="game" href="https://guilhermesoti.github.io/smw-ps2/">
+    <a class="game" href="https://portretrogames.github.io/smw-ps2/">
       <div class="shot"><span class="from">SNES → PS2</span><img src="img/mario.png" alt="Tela de título do port de Super Mario World" width="640" height="480"></div>
       <div class="body">
         <h3>Super Mario World</h3>
@@ -184,14 +184,14 @@
 
 <footer><div class="wrap">
   <p>Projetos de fãs, sem ligação com a Konami, a Nintendo ou a Bandai Namco. Os jogos e suas marcas pertencem aos seus donos; nenhum port traz o jogo ou seus dados.</p>
-  <p>Retrogames Patos de Minas · <a href="https://github.com/guilhermesoti">github.com/guilhermesoti</a></p>
+  <p>Retrogames Patos de Minas · <a href="https://github.com/portretrogames">github.com/portretrogames</a></p>
 </div></footer>
 
 <script>
   // versão mais nova de cada port, direto do GitHub
   document.querySelectorAll(".ver[data-repo]").forEach(async el => {
     try {
-      const r = await fetch("https://api.github.com/repos/guilhermesoti/" + el.dataset.repo + "/releases?per_page=1");
+      const r = await fetch("https://api.github.com/repos/portretrogames/" + el.dataset.repo + "/releases?per_page=1");
       if (!r.ok) return;
       const rel = (await r.json())[0];
       if (rel) el.textContent = rel.tag_name + (rel.prerelease && !/beta/i.test(rel.tag_name) ? " · beta" : "");
